@@ -41,9 +41,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let postVC = segue.destination as! PostViewController
             postVC.tableViewController = self    //傳遞第一頁的執行實體給第二頁（引用型別傳遞）
             
-            guard let rowIndex = self.tableView.indexPathForSelectedRow else {
+            guard let rowIndex = tableView.indexPathForSelectedRow else {
                 return
             }
+//            print(rowIndex.row)
             postVC.selectedRow = rowIndex.row
             postVC.postRecords = days[rowIndex.section]
         }

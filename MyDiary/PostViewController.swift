@@ -9,36 +9,51 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var db:OpaquePointer? = nil    //資料庫連線（從AppDelegate取得）
     var currentTextObjectYPosition:CGFloat = 0    //記錄目前輸入元件的Y軸底緣位置
+    
     var selectedRow  = 0  //記錄上一頁選定的資料索引值
     var postRecords = ""
-    var myDatePicker :UIDatePicker!
     
-    @IBOutlet weak var txtDate: UITextField!    
+    var selectedItem = 0
+    var postItemRecords = ""
+    
+    var dicCurrentRow: [String:Any?] = [:]
+////    var myRecords: [String:[[String:Any?]]] = [:]
+    var myDatePicker :UIDatePicker!
+
+    @IBOutlet weak var txtDate: UITextField!
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var txtView: UITextView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            db = appDelegate.getDB()
-            //            print("連線成功２")
+            db = appDelegate.getDB()            
         }
-        
+
         txtDate.delegate = self
         myFormatter.dateFormat = "yyyy-MM-dd HH:mm EEE"
         
-        print(tableViewController.myRecords[postRecords]![selectedRow])
-        //記錄選定列的字典
-        let dicCurrentRow = tableViewController.myRecords[postRecords]![selectedRow]
-        //顯示上一頁選定的資料
-//        print(dicCurrentRow["CreateTime"])
-        txtDate.text = dicCurrentRow["CreateTime"] as? String
-        txtView.text = dicCurrentRow["TextView"] as! String
-        guard let aPic = dicCurrentRow["Photo"]! else {
-            return
+////        print("selected：\(tableViewController.myRecords[postRecords]![selectedRow])")
+////        print("selected：\(collectionViewController.myRecords[postItemRecords]![selectedItem])")
+//        //記錄選定列的字典
+        if self.tableViewController != nil {
+            let dicCurrentRow = tableViewController.myRecords[postRecords]?[selectedRow]
+            txtDate.text = dicCurrentRow?["CreateTime"] as? String
+            txtView.text = dicCurrentRow?["TextView"] as! String
+            guard let aPic = dicCurrentRow?["Photo"]! else {
+                return
+            }
+            imgPicture.image = UIImage(data: aPic as! Data)
+        } else {
+            let dicCurrentRow = collectionViewController.myRecords[postItemRecords]?[selectedItem]
+            txtDate.text = dicCurrentRow?["CreateTime"] as? String
+            txtView.text = dicCurrentRow?["TextView"] as! String
+            guard let aPic = dicCurrentRow?["Photo"]! else {
+                return
+            }
+            imgPicture.image = UIImage(data: aPic as! Data)
         }
-        imgPicture.image = UIImage(data: aPic as! Data)
         
         // UIDatePicker
         myDatePicker = UIDatePicker()
@@ -62,7 +77,7 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closeKeyBoard))    //宣告點按手勢，並且指定對應呼叫的方法
         self.view.addGestureRecognizer(tapGesture)    //把點按手勢加到底面上
         
-        // 導覽列右邊儲存按鈕
+        // 導覽列右邊修改按鈕
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "修改", style:.plain, target: self, action: #selector(btnUpdateAction))
         //註冊鍵盤彈出的通知
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)

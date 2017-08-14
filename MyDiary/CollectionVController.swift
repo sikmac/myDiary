@@ -5,8 +5,8 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var collectionView: UICollectionView!    //先將collectionView建立屬性
     
     let myRefreshControl = UIRefreshControl()    //建立UIRefreshControl，存在常數myRefreshControl中
-    var myRecords :[String:[[String:String]]]! = [:]
-    var days :[String]! = []
+    var myRecords :[String:[[String:Any?]]] = [:]
+    var days: [String]! = []
     
     var db:OpaquePointer? = nil
     
@@ -31,12 +31,22 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
             let postVC = segue.destination as! PostViewController
             postVC.collectionViewController = self    //傳遞第一頁的執行實體給第二頁（引用型別傳遞）
             
-            guard let rowIndex = self.collectionView.indexPathsForSelectedItems else {
+            guard let indexPath = collectionView.indexPathsForSelectedItems else {
                 return
             }
-            print(rowIndex)
-            //            postVC.selectedItem = rowIndex
-            //            postVC.postRecords = days[rowIndex.section]
+//            print(indexPath[0].section)
+//            print(rowIndex.first!)
+//            let date = days[section]
+//            guard let records = myRecords[date] else {
+//                return
+//            }
+//            postVC.postRecords = records[section]
+
+//            postVC.selectedRow = rowIndex
+//            print(rowIndex)
+            postVC.selectedItem = indexPath[0].row
+            postVC.postItemRecords = days[indexPath[0].section]
+//            postVC.
         }
     }
     //要顯示幾個Section(建立幾筆陣列資料這需更動)
@@ -60,10 +70,10 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
         }
         
         // 顯示的內容
-        cell.lblDate.text = records[indexPath.row]["CreateDate"]     //as? String
-        cell.lblWeek.text = records[indexPath.row]["CreateWeek"]     //as? String
-        cell.txtView.text = records[indexPath.row]["TextView"]     //as? String
-        //        cell.imgPicture.image = UIImage(data: ((records[indexPath.row]["Photo"]) as? Data)!)
+        cell.lblDate.text = records[indexPath.row]["CreateDate"] as? String
+        cell.lblWeek.text = records[indexPath.row]["CreateWeek"] as? String
+        cell.txtView.text = records[indexPath.row]["TextView"] as? String
+        cell.imgPicture.image = UIImage(data: ((records[indexPath.row]["Photo"]) as? Data)!)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -133,7 +143,7 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
                     "Id":"\(id)",
                     "CreateDate":"\(createDate)",
                     "CreateWeek":"\(createWeek)",
-                    //                    "Photo":imgData,
+                    "Photo":imgData,
                     "TextView":"\(textView)",
                     "CreateTime":"\(createTime)"
                     ])

@@ -13,6 +13,8 @@
 		39458F4E1F31674800915FD5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39458F4D1F31674800915FD5 /* SettingsViewController.swift */; };
 		39458F521F3170B100915FD5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39458F511F3170B100915FD5 /* PostViewController.swift */; };
 		394B21951F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */; };
+		395A0E741F428BF900309501 /* ReadConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395A0E731F428BF900309501 /* ReadConfigure.swift */; };
+		395A0E941F42952500309501 /* FuncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395A0E931F42952500309501 /* FuncView.swift */; };
 		395E152C1F30506300A01F43 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 395E152B1F30506300A01F43 /* libsqlite3.tbd */; };
 		3967BCB61F3D580B00242C2B /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3967BCB51F3D580B00242C2B /* CollectionViewCell.swift */; };
 		3981595A1F42163000551209 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398159591F42163000551209 /* SlideMenuController.swift */; };
@@ -31,6 +33,8 @@
 		39458F4D1F31674800915FD5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		39458F511F3170B100915FD5 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDiaryHeaderViewCollectionReusableView.swift; sourceTree = "<group>"; };
+		395A0E731F428BF900309501 /* ReadConfigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadConfigure.swift; sourceTree = "<group>"; };
+		395A0E931F42952500309501 /* FuncView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncView.swift; sourceTree = "<group>"; };
 		395E152B1F30506300A01F43 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		395E152E1F3050AA00A01F43 /* MyDiary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyDiary-Bridging-Header.h"; path = "MyDiary/MyDiary-Bridging-Header.h"; sourceTree = "<group>"; };
 		3967BCB51F3D580B00242C2B /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -70,14 +74,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		394B21961F40BB6A00F8E5BB /* Custom Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Custom Fonts";
-			path = ..;
-			sourceTree = "<group>";
-		};
 		394B21971F40C09600F8E5BB /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +82,15 @@
 				3967BCB51F3D580B00242C2B /* CollectionViewCell.swift */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		395A0E721F428B0200309501 /* ChangeFontTest */ = {
+			isa = PBXGroup;
+			children = (
+				395A0E731F428BF900309501 /* ReadConfigure.swift */,
+				395A0E931F42952500309501 /* FuncView.swift */,
+			);
+			name = ChangeFontTest;
 			sourceTree = "<group>";
 		};
 		395E152A1F30506300A01F43 /* Frameworks */ = {
@@ -121,12 +126,12 @@
 				395E152A1F30506300A01F43 /* Frameworks */,
 				394B21971F40C09600F8E5BB /* Cell */,
 				39458F4A1F31661B00915FD5 /* Controllers */,
+				395A0E721F428B0200309501 /* ChangeFontTest */,
 				399CCC161F06B43D00AF605D /* AppDelegate.swift */,
 				399CCC1A1F06B43D00AF605D /* Main.storyboard */,
 				399CCC1D1F06B43D00AF605D /* Assets.xcassets */,
 				399CCC1F1F06B43D00AF605D /* LaunchScreen.storyboard */,
 				399CCC221F06B43D00AF605D /* Info.plist */,
-				394B21961F40BB6A00F8E5BB /* Custom Fonts */,
 			);
 			path = MyDiary;
 			sourceTree = "<group>";
@@ -211,6 +216,8 @@
 				39152AE71F37FF02001ADB1C /* SQLiteConnect.swift in Sources */,
 				39CAFA6F1F0C7B5C0035B241 /* CollectionVController.swift in Sources */,
 				39458F4E1F31674800915FD5 /* SettingsViewController.swift in Sources */,
+				395A0E741F428BF900309501 /* ReadConfigure.swift in Sources */,
+				395A0E941F42952500309501 /* FuncView.swift in Sources */,
 				3981595A1F42163000551209 /* SlideMenuController.swift in Sources */,
 				3921507C1F30AAE200C4F31F /* AddViewController.swift in Sources */,
 				399CCC171F06B43D00AF605D /* AppDelegate.swift in Sources */,

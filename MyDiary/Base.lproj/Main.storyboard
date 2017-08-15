@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lyo-NT-f6X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="d4J-bL-T5i">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -82,14 +82,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F69-83-g7A">
-                                <rect key="frame" x="184" y="686" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="＋"/>
-                                <connections>
-                                    <action selector="btnAdd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H1M-tK-ljF"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -98,14 +90,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d7g-2N-udI">
-                        <barButtonItem key="leftBarButtonItem" title="月曆" id="H2d-4K-ATW">
+                        <barButtonItem key="leftBarButtonItem" title="設定" id="H2d-4K-ATW"/>
+                        <barButtonItem key="rightBarButtonItem" title="＋" id="msQ-wL-xCT">
                             <connections>
-                                <action selector="btnCalender:" destination="BYZ-38-t0r" id="L9O-Om-F8U"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="設定" id="neU-Yd-jeL">
-                            <connections>
-                                <action selector="btnSettings:" destination="BYZ-38-t0r" id="gSs-Qx-LgR"/>
+                                <action selector="btnAdd:" destination="BYZ-38-t0r" id="p0y-zf-9eZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -120,7 +108,7 @@
         <!--更新-->
         <scene sceneID="KhN-NP-YwL">
             <objects>
-                <viewController storyboardIdentifier="PostView" id="wKT-6l-DQc" customClass="PostViewController" customModule="MyDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostView" hidesBottomBarWhenPushed="YES" id="wKT-6l-DQc" customClass="PostViewController" customModule="MyDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lVM-Hx-tCe"/>
                         <viewControllerLayoutGuide type="bottom" id="i2p-iw-ZOL"/>
@@ -129,13 +117,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6JS-AU-98O">
-                                <rect key="frame" x="20" y="336" width="374" height="356"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tlP-Ba-OBW">
                                 <rect key="frame" x="66" y="107" width="283" height="177"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -167,12 +148,30 @@
                                     <action selector="btnPhotoAlbum:" destination="qEG-Kg-sYZ" eventType="touchUpInside" id="wCU-Yw-sV4"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6JS-AU-98O">
+                                <rect key="frame" x="20" y="328" width="374" height="356"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbh-2Z-qr9">
+                                <rect key="frame" x="362" y="689" width="85" height="40"/>
+                                <state key="normal" title="share" image="share"/>
+                                <connections>
+                                    <action selector="btnShare:" destination="wKT-6l-DQc" eventType="touchUpInside" id="tNh-hN-ieQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rbh-2Z-qr9" secondAttribute="bottom" constant="7" id="Dmd-Ml-nLc"/>
+                            <constraint firstAttribute="trailing" secondItem="rbh-2Z-qr9" secondAttribute="trailing" constant="-33" id="dDB-Yi-Ftg"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="更新" id="HaB-FB-GiS"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imgPicture" destination="tlP-Ba-OBW" id="d9M-1z-cnl"/>
                         <outlet property="txtDate" destination="ySl-k4-J6W" id="W2b-H4-IvU"/>
@@ -181,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hc9-1j-vHK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184" y="-174"/>
+            <point key="canvasLocation" x="1182.608695652174" y="-174.45652173913044"/>
         </scene>
         <!--月曆-->
         <scene sceneID="Uwt-2l-fcT">
@@ -199,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bz6-rg-4n1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1267" y="-886"/>
+            <point key="canvasLocation" x="1183" y="-886"/>
         </scene>
         <!--CollectionV Controller-->
         <scene sceneID="Iea-3d-Pt6">
@@ -296,14 +295,6 @@
                                     <action selector="btnBack:" destination="rfS-rH-izL" eventType="touchUpInside" id="NaB-Cb-ll9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYW-sM-zc4">
-                                <rect key="frame" x="184" y="686" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="＋"/>
-                                <connections>
-                                    <action selector="btnAdd:" destination="rfS-rH-izL" eventType="touchUpInside" id="KTD-Ld-SjT"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -313,16 +304,8 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="z85-rC-yyz">
-                        <barButtonItem key="leftBarButtonItem" title="月曆" id="gsz-6E-Oq6">
-                            <connections>
-                                <action selector="btnCalender:" destination="rfS-rH-izL" id="5hy-9d-FUl"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="設定" id="olu-fI-qBZ">
-                            <connections>
-                                <action selector="btnSettings:" destination="rfS-rH-izL" id="fEA-VH-Qyl"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="設定" id="gsz-6E-Oq6"/>
+                        <barButtonItem key="rightBarButtonItem" title="＋" id="olu-fI-qBZ"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="0gs-us-raH" id="Fw6-ZK-VfQ"/>
@@ -330,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPj-JK-DuW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="386" y="-174"/>
+            <point key="canvasLocation" x="500" y="-174"/>
         </scene>
         <!--新增-->
         <scene sceneID="Xhj-s9-L5t">
@@ -344,13 +327,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k6Q-W6-dUT">
-                                <rect key="frame" x="20" y="336" width="374" height="356"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PVq-XK-Tl2">
                                 <rect key="frame" x="66" y="107" width="283" height="177"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -380,6 +356,13 @@
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="32"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k6Q-W6-dUT">
+                                <rect key="frame" x="20" y="330" width="374" height="356"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -422,12 +405,30 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EQp-6g-Nc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1919" y="-886"/>
+            <point key="canvasLocation" x="1822" y="-886"/>
+        </scene>
+        <!--Slide Menu Controller-->
+        <scene sceneID="8Cd-1m-zqH">
+            <objects>
+                <viewController id="d4J-bL-T5i" customClass="SlideMenuController" customModule="MyDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UaE-0R-hpr"/>
+                        <viewControllerLayoutGuide type="bottom" id="OxW-Uy-Yu1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TtF-7t-bZg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uai-Gf-Kls" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-865" y="-886"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fji-5i-LBq">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lyo-NT-f6X" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNavigaiton" automaticallyAdjustsScrollViewInsets="NO" id="lyo-NT-f6X" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2Ey-BT-JHF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -440,10 +441,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fID-tg-r1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-225" y="-886"/>
+            <point key="canvasLocation" x="-183" y="-886"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="share" width="40" height="40"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YWq-hX-Txd"/>
+        <segue reference="mRb-R7-7S8"/>
     </inferredMetricsTieBreakers>
 </document>

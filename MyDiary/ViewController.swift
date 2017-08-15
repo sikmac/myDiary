@@ -2,49 +2,75 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: -tableView in tableViewController property
-//    let fullsize = UIScreen.main.bounds.size
     let myFormatter = DateFormatter()
-    let myRefreshControl = UIRefreshControl()    //建立UIRefreshControl，存在常數myRefreshControl中
+    let myRefreshControl = UIRefreshControl()
     
-    var dicRow = [String:Any?]()    //記錄單一資料行（離線資料集）
+    var dicRow = [String:Any?]()
     var currentDate: Date = Date()
-    var myRecords: [String:[[String:Any?]]] = [:]    //記錄查詢到的資料表
-    var db: OpaquePointer? = nil    //資料庫連線（從AppDelegate取得）
+    var myRecords: [String:[[String:Any?]]] = [:]
+    var db: OpaquePointer? = nil
     var days: [String]! = []
-//    var selectedId = 0
-    // MARK: -tableView in viewController property
-//    @IBOutlet weak var lblCurrentYearMonth: UILabel!
-        //先將tableView建立屬性
-    @IBOutlet var tableView: UITableView!
     
+    @IBOutlet var tableView: UITableView!
+//    //MARK: -側滑menu元件
+//    var mainNavigationController:UINavigationController!    // 主页导航控制器
+////    var self = self    // 主页面控制器
+//    var menuViewController:SettingsViewController?    // 菜单页控制器
+//    
+//    // 菜单页当前状态
+//    var currentState = MenuState.collapsed {
+//        didSet {
+//            //菜单展开的时候，给主页面边缘添加阴影
+//            let shouldShowShadow = currentState != .collapsed
+//            showShadowForMainViewController(shouldShowShadow)
+//        }
+//    }
+//    let menuViewExpandedOffset: CGFloat = 60    // 菜单打开后主页在屏幕右侧露出部分的宽度
+//    //==========================
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {    //從AppDelegate取得資料庫連線
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             db = appDelegate.getDB()
-//            print("連線成功１")
         }
-        getDataFromDB()    //準備離線資料集(呼叫讀取資料庫資料的函式)
+        getDataFromDB()
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.refreshControl = myRefreshControl    //產生下拉更新元件
-        self.myRefreshControl.addTarget(self, action: #selector(self.refreshList), for: .valueChanged)    //對應下拉更新的事件
-        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "更新中...")    //指定下拉更新的附帶文字
-        
+//        tableView.refreshControl = myRefreshControl
+//        self.myRefreshControl.addTarget(self, action: #selector(ViewController.refreshList), for: .valueChanged)
+//        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "更新中...")
 //        tableView.contentOffset = CGPoint(x: 0.0, y: 44.0)
+////MARK: -側滑menu元件
+//        //初始化主视图
+//        mainNavigationController = UIStoryboard(name: "Main", bundle: nil)
+//            .instantiateViewController(withIdentifier: "tableView") as! UINavigationController
+//        view.addSubview(mainNavigationController.view)
+//        
+////        //指定Navigation Bar左侧按钮的事件
+////        self = mainNavigationController.viewControllers.first //as! MainViewController
+////        self.navigationItem.leftBarButtonItem?.action = #selector(ViewController.showMenu)
+//        
+//        //添加拖动手势
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
+//                                                          action: #selector(ViewController.handlePanGesture(_:)))
+//        mainNavigationController.view.addGestureRecognizer(panGestureRecognizer)
+//        
+//        //单击收起菜单手势
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+//                                                          action: #selector(ViewController.handlePanGesture as (ViewController) -> () -> ()))
+//        mainNavigationController.view.addGestureRecognizer(tapGestureRecognizer)
     }
-    //由導覽線換頁時
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segue1" {
             let postVC = segue.destination as! PostViewController
-            postVC.tableViewController = self    //傳遞第一頁的執行實體給第二頁（引用型別傳遞）
+            postVC.tableViewController = self
             
             guard let rowIndex = tableView.indexPathForSelectedRow else {
                 return
             }
-//            print(rowIndex.row)
             postVC.selectedRow = rowIndex.row
             postVC.postRecords = days[rowIndex.section]
         }
@@ -52,48 +78,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.getDataFromDB()
-//        tableView.reloadData()    //畫面重現時，請TableView立即重整資料
+
     }
     func getDataFromDB() {
-        //清除所有的陣列元素
         days.removeAll()
-        myRecords.removeAll()        //arrTable = [[String:Any?]]()
-        let sql = "SELECT Id,YearMonth,CreateDate,CreateWeek,CreateTime,Photo,TextView FROM records ORDER BY YearMonth DESC, CreateTime DESC"    //準備查詢指令
-        var statement:OpaquePointer? = nil    //宣告查詢結果的變數（連線資料集）
-        sqlite3_prepare(db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)    //執行查詢指令（-1代表不限定sql指令的長度，最後一個參數為預留參數，目前沒有作用）
-        //往下讀一筆，如果讀到資料時
+        myRecords.removeAll()
+        let sql = "SELECT Id,YearMonth,CreateDate,CreateWeek,CreateTime,Photo,TextView FROM records ORDER BY YearMonth DESC, CreateTime DESC"
+        var statement:OpaquePointer? = nil
+        sqlite3_prepare(db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)
         while sqlite3_step(statement) == SQLITE_ROW {
             let id = sqlite3_column_int(statement, 0)
-//            print("id:\(id)")
+            
             let sYearMonth = sqlite3_column_text(statement, 1)
             let yearMonth = String(cString: sYearMonth!)
-//            print("yearMonth:\(yearMonth)")
+
             let sCreateDate = sqlite3_column_text(statement, 2)
             let createDate = String(cString: sCreateDate!)
-//            print("createDate:\(createDate)")
+
             let sCreateWeek = sqlite3_column_text(statement, 3)
             let createWeek = String(cString: sCreateWeek!)
-//            print("createWeek:\(createWeek)")
+
             let sCreateTime = sqlite3_column_text(statement, 4)
             let createTime = String(cString: sCreateTime!)
-//            print("createWeek:\(createTime)")
-            
-            //取得第四個欄位（照片）
-            var imgData:Data?    //用於記載檔案的每一個位元資料
-            if let totalBytes = sqlite3_column_blob(statement, 5) {    //讀取檔案每一個位元的資料
-                let length = sqlite3_column_bytes(statement, 5)     //讀取檔案長度
-                imgData = Data(bytes: totalBytes, count: Int(length))    //將數位圖檔資訊，初始化成為Data物件
+
+            var imgData:Data?
+            if let totalBytes = sqlite3_column_blob(statement, 5) {
+                let length = sqlite3_column_bytes(statement, 5)
+                imgData = Data(bytes: totalBytes, count: Int(length))
             }
-            let textView = String(cString: (sqlite3_column_text(statement, 6))!)    //轉換第二個欄位（swift字串）
+            let textView = String(cString: (sqlite3_column_text(statement, 6))!)
             if yearMonth != "" {
-//                print("1days:\(days)")
                 if !days.contains(yearMonth) {
-//                    print("2days:\(days)")
                     days.append(yearMonth)
-//                    print("3days:\(days)")
                     myRecords[yearMonth] = []
                 }
-                //                myRecords[yearMonth]?.append([
                 myRecords[yearMonth]?.append([
                     "Id":"\(id)",
                     "CreateDate":"\(createDate)",
@@ -102,22 +120,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     "TextView":"\(textView)",
                     "CreateTime":"\(createTime)"
                 ])
-//print("dic array:\(dicRow)")
-//                myRecords[yearMonth]?.append(dicRow)
-//                print("myRecords：\(myRecords)")
-                
             }
         }
-        sqlite3_finalize(statement)    //關閉連線資料集
-//                print("myRecords：\(myRecords)")
+        sqlite3_finalize(statement)
         tableView.reloadData()
     }
     // MARK: Table view data source
-    //要顯示幾個Section(建立幾筆陣列資料這需更動)
     func numberOfSections(in tableView: UITableView) -> Int {
         return days.count
     }
-    //Section裡面要顯示的row數
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let date = days[section]
         guard let records = myRecords[date] else {
@@ -125,16 +137,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return records.count
     }
-    //每一列TableViewCell要顯示的資料
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCellController    //先產出cell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCellController
         let date = days[indexPath.section]
         guard let records = myRecords[date] else {
             return cell
         }
-        
-        // 顯示的內容
         cell.lblDate.text = records[indexPath.row]["CreateDate"] as? String
         cell.lblWeek.text = records[indexPath.row]["CreateWeek"] as? String
         cell.txtView.text = records[indexPath.row]["TextView"] as? String
@@ -143,59 +152,164 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
 
-    //為多個section增加title
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return days[section]
     }
-    //設定section title(header)的高度
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 45
     }
-    //得知選擇了哪個row, section
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //選擇(點擊)後會變灰色，得取消選擇才復原
         tableView.deselectRow(at: indexPath, animated: true)
-        
-//        self.navigationController?.pushViewController(PostViewController(), animated: true)
     }
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//            tableView.reloadData()
+//    //导航栏左侧按钮事件响应
+//    func showMenu() {
+//        //如果菜单是展开的则会收起，否则就展开
+//        if currentState == .expanded {
+//            animateMainView(false)
+//        }else {
+//            addMenuViewController()
+//            animateMainView(true)
+//        }
 //    }
-    // MARK: Functional Methods
-    //MARK: -tableView refresh
-    //refreshList方法裡要把更新後的資料存進tableDate裡
-    //讓tableView執行reloadData方法更新資料
-    //使用UIRefresh的endRreshing方法，讓refreshController停止轉動並隱藏
-    func refreshList() {
+//    
+//    //拖动手势响应
+//    func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+//        
+//        switch(recognizer.state) {
+//        // 刚刚开始滑动
+//        case .began:
+//            // 判断拖动方向
+//            let dragFromLeftToRight = (recognizer.velocity(in: view).x > 0)
+//            // 如果刚刚开始滑动的时候还处于主页面，从左向右滑动加入侧面菜单
+//            if (currentState == .collapsed && dragFromLeftToRight) {
+//                currentState = .expanding
+//                addMenuViewController()
+//            }
+//            
+//        // 如果是正在滑动，则偏移主视图的坐标实现跟随手指位置移动
+//        case .changed:
+//            let positionX = recognizer.view!.frame.origin.x +
+//                recognizer.translation(in: view).x
+//            //页面滑到最左侧的话就不许要继续往左移动
+//            recognizer.view!.frame.origin.x = positionX < 0 ? 0 : positionX
+//            recognizer.setTranslation(CGPoint.zero, in: view)
+//            
+//        // 如果滑动结束
+//        case .ended:
+//            //根据页面滑动是否过半，判断后面是自动展开还是收缩
+//            let hasMovedhanHalfway = recognizer.view!.center.x > view.bounds.size.width
+//            animateMainView(hasMovedhanHalfway)
+//        default:
+//            break
+//        }
+//    }
+//    
+//    //单击手势响应
+//    func handlePanGesture() {
+//        //如果菜单是展开的点击主页部分则会收起
+//        if currentState == .expanded {
+//            animateMainView(false)
+//        }
+//    }
+//    
+//    // 添加菜单页
+//    func addMenuViewController() {
+//        if (menuViewController == nil) {
+//            menuViewController = UIStoryboard(name: "Main", bundle: nil)
+//                .instantiateViewController(withIdentifier: "menuView") as? MenuViewController
+//            
+//            // 插入当前视图并置顶
+//            view.insertSubview(menuViewController!.view, at: 0)
+//            
+//            // 建立父子关系
+//            addChildViewController(menuViewController!)
+//            menuViewController!.didMove(toParentViewController: self)
+//        }
+//    }
+//    
+//    //主页自动展开、收起动画
+//    func animateMainView(_ shouldExpand: Bool) {
+//        // 如果是用来展开
+//        if (shouldExpand) {
+//            // 更新当前状态
+//            currentState = .expanded
+//            // 动画
+//            animateMainViewXPosition(mainNavigationController.view.frame.width -
+//                menuViewExpandedOffset)
+//        } else {     // 如果是用于隐藏
+//            // 动画
+//            animateMainViewXPosition(0) { finished in
+//                // 动画结束之后s更新状态
+//                self.currentState = .collapsed
+//                // 移除左侧视图
+//                self.menuViewController?.view.removeFromSuperview()
+//                // 释放内存
+//                self.menuViewController = nil;
+//            }
+//        }
+//    }
+//
+//    //主页移动动画（在x轴移动）
+//    func animateMainViewXPosition(_ targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
+//        //usingSpringWithDamping：1.0表示没有弹簧震动动画
+//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0,
+//                       initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: {
+//                        self.mainNavigationController.view.frame.origin.x = targetPosition
+//        }, completion: completion)
+//    }
+//    
+//    //给主页面边缘添加、取消阴影
+//    func showShadowForMainViewController(_ shouldShowShadow: Bool) {
+//        if (shouldShowShadow) {
+//            mainNavigationController.view.layer.shadowOpacity = 0.8
+//        } else {
+//            mainNavigationController.view.layer.shadowOpacity = 0.0
+//        }
+//    }
+//}
+//
+//// 菜单状态枚举
+//enum MenuState {
+//    case collapsed  // 未显示(收起)
+//    case expanding   // 展开中
+//    case expanded   // 展开
+//}
 
+    //MARK: -tableView refresh
+    func refreshList() {
         getDataFromDB()
         tableView.reloadData()
         myRefreshControl.endRefreshing()
     }
     //MARK: -Buttons
     @IBAction func btnChange(_ sender: UIButton) {
-//        self.dismiss(animated: true, completion: nil)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let tableVC = mainStoryboard.instantiateViewController(withIdentifier: "collectionView")
         self.navigationController?.pushViewController(tableVC, animated: true)
-//        print("tableView被釋放")
     }
-    @IBAction func btnCalender(_ sender: UIBarButtonItem) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let calenderViewController = mainStoryboard.instantiateViewController(withIdentifier: "CalenderView")
-        self.navigationController?.pushViewController(calenderViewController, animated: true)
-    }    
-    @IBAction func btnSettings(_ sender: UIBarButtonItem) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let settingsViewController = mainStoryboard.instantiateViewController(withIdentifier: "SettingsView")
-        self.navigationController?.pushViewController(settingsViewController, animated: true)
-    }
-    @IBAction func btnAdd(_ sender: UIButton) {
+//    @IBAction func btnSettings(_ sender: UIBarButtonItem) {
 //        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let settingsViewController = mainStoryboard.instantiateViewController(withIdentifier: "SettingsView")
+//        self.navigationController?.pushViewController(settingsViewController, animated: true)
+//    }    
+//    @IBAction func btnSettings(_ sender: UIBarButtonItem) {
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let settingsViewController = mainStoryboard.instantiateViewController(withIdentifier: "SettingsView")
+//        self.navigationController?.pushViewController(settingsViewController, animated: true)
+//    }
+    @IBAction func btnAdd(_ sender: UIBarButtonItem) {
         let addViewController = storyboard?.instantiateViewController(withIdentifier: "AddView") as! AddViewController
         addViewController.tableViewController = self
         self.navigationController?.pushViewController(addViewController, animated: true)
-//        show(addViewController, sender: nil)
     }
-}
+    
+//    @IBAction func btnAdd(_ sender: UIButton) {
+//        let addViewController = storyboard?.instantiateViewController(withIdentifier: "AddView") as! AddViewController
+//        addViewController.tableViewController = self
+//        self.navigationController?.pushViewController(addViewController, animated: true)
+//    }
 
+
+}

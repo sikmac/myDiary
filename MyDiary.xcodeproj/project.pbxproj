@@ -25,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteConnect.swift; sourceTree = "<group>"; };
+		39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SQLiteConnect.swift; path = MyDiary/SQLiteConnect.swift; sourceTree = "<group>"; };
 		3921507B1F30AAE200C4F31F /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		39458F481F3162A900915FD5 /* TableViewCellController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellController.swift; sourceTree = "<group>"; };
 		39458F4D1F31674800915FD5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -63,11 +63,9 @@
 				398159591F42163000551209 /* SlideMenuController.swift */,
 				399CCC181F06B43D00AF605D /* ViewController.swift */,
 				39CAFA6E1F0C7B5C0035B241 /* CollectionVController.swift */,
-				394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */,
 				39458F4D1F31674800915FD5 /* SettingsViewController.swift */,
 				3921507B1F30AAE200C4F31F /* AddViewController.swift */,
 				39458F511F3170B100915FD5 /* PostViewController.swift */,
-				39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -83,6 +81,7 @@
 		394B21971F40C09600F8E5BB /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */,
 				39458F481F3162A900915FD5 /* TableViewCellController.swift */,
 				3967BCB51F3D580B00242C2B /* CollectionViewCell.swift */,
 			);
@@ -94,6 +93,7 @@
 			children = (
 				395E152E1F3050AA00A01F43 /* MyDiary-Bridging-Header.h */,
 				395E152B1F30506300A01F43 /* libsqlite3.tbd */,
+				39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */,
 			);
 			name = Frameworks;
 			path = ..;

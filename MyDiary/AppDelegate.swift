@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let destinationDB = NSHomeDirectory() + "/Documents/sqlite3.db"    //取得資料庫的目的地路徑
-        print("目的地路徑：\(destinationDB)")
+        print("path：\(destinationDB)")
         //檢查目的地的資料庫是否已經存在
         if !FileManager.default.fileExists(atPath: destinationDB) {    //如果不存在
             if sqlite3_open(destinationDB, &db) == SQLITE_OK {
@@ -22,15 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let sql = "create table if not exists records (Id INTEGER primary key autoincrement,YearMonth TEXT,CreateDate TEXT,CreateWeek TEXT,CreateTime DATETIME,Photo BLOB,TextView TEXT)"
                 if sqlite3_exec(db, sql.cString(using: String.Encoding.utf8), nil, nil, nil) == SQLITE_OK {
-                    print("Success11111!")
                 } else {
-                    print ("Failed11111!")
                 }
             }
         } else if sqlite3_open(destinationDB, &db) == SQLITE_OK {
-            print("資料庫開啟成功！")
         } else {
-            print("資料庫開啟失敗！")
             db = nil
         }
         return true

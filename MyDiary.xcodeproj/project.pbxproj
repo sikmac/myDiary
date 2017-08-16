@@ -13,6 +13,8 @@
 		39458F4E1F31674800915FD5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39458F4D1F31674800915FD5 /* SettingsViewController.swift */; };
 		39458F521F3170B100915FD5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39458F511F3170B100915FD5 /* PostViewController.swift */; };
 		394B21951F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */; };
+		394D0A331F44576C00A4C16D /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394D0A321F44576C00A4C16D /* PinterestLayout.swift */; };
+		394D0A361F44888100A4C16D /* RoundedCornersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394D0A351F44888100A4C16D /* RoundedCornersView.swift */; };
 		395E152C1F30506300A01F43 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 395E152B1F30506300A01F43 /* libsqlite3.tbd */; };
 		3967BCB61F3D580B00242C2B /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3967BCB51F3D580B00242C2B /* CollectionViewCell.swift */; };
 		399CCC171F06B43D00AF605D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399CCC161F06B43D00AF605D /* AppDelegate.swift */; };
@@ -24,12 +26,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteConnect.swift; sourceTree = "<group>"; };
+		39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SQLiteConnect.swift; path = MyDiary/SQLiteConnect.swift; sourceTree = "<group>"; };
 		3921507B1F30AAE200C4F31F /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		39458F481F3162A900915FD5 /* TableViewCellController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellController.swift; sourceTree = "<group>"; };
 		39458F4D1F31674800915FD5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		39458F511F3170B100915FD5 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDiaryHeaderViewCollectionReusableView.swift; sourceTree = "<group>"; };
+		394D0A321F44576C00A4C16D /* PinterestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		394D0A351F44888100A4C16D /* RoundedCornersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornersView.swift; sourceTree = "<group>"; };
 		395E152B1F30506300A01F43 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		395E152E1F3050AA00A01F43 /* MyDiary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyDiary-Bridging-Header.h"; path = "MyDiary/MyDiary-Bridging-Header.h"; sourceTree = "<group>"; };
 		3967BCB51F3D580B00242C2B /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -60,11 +64,9 @@
 			children = (
 				399CCC181F06B43D00AF605D /* ViewController.swift */,
 				39CAFA6E1F0C7B5C0035B241 /* CollectionVController.swift */,
-				394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */,
 				39458F4D1F31674800915FD5 /* SettingsViewController.swift */,
 				3921507B1F30AAE200C4F31F /* AddViewController.swift */,
 				39458F511F3170B100915FD5 /* PostViewController.swift */,
-				39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -80,10 +82,19 @@
 		394B21971F40C09600F8E5BB /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				394B21941F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift */,
 				39458F481F3162A900915FD5 /* TableViewCellController.swift */,
 				3967BCB51F3D580B00242C2B /* CollectionViewCell.swift */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		394D0A341F44883100A4C16D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				394D0A351F44888100A4C16D /* RoundedCornersView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		395E152A1F30506300A01F43 /* Frameworks */ = {
@@ -91,9 +102,18 @@
 			children = (
 				395E152E1F3050AA00A01F43 /* MyDiary-Bridging-Header.h */,
 				395E152B1F30506300A01F43 /* libsqlite3.tbd */,
+				39152AE61F37FF02001ADB1C /* SQLiteConnect.swift */,
 			);
 			name = Frameworks;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		3962107D1F4437FB007D3298 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				394D0A321F44576C00A4C16D /* PinterestLayout.swift */,
+			);
+			name = Layout;
 			sourceTree = "<group>";
 		};
 		399CCC0A1F06B43D00AF605D = {
@@ -115,10 +135,12 @@
 		399CCC151F06B43D00AF605D /* MyDiary */ = {
 			isa = PBXGroup;
 			children = (
+				3962107D1F4437FB007D3298 /* Layout */,
 				395E152A1F30506300A01F43 /* Frameworks */,
 				394B21971F40C09600F8E5BB /* Cell */,
 				39458F4A1F31661B00915FD5 /* Controllers */,
 				399CCC161F06B43D00AF605D /* AppDelegate.swift */,
+				394D0A341F44883100A4C16D /* Views */,
 				399CCC1A1F06B43D00AF605D /* Main.storyboard */,
 				399CCC1D1F06B43D00AF605D /* Assets.xcassets */,
 				399CCC1F1F06B43D00AF605D /* LaunchScreen.storyboard */,
@@ -209,9 +231,11 @@
 				39CAFA6F1F0C7B5C0035B241 /* CollectionVController.swift in Sources */,
 				39458F4E1F31674800915FD5 /* SettingsViewController.swift in Sources */,
 				3921507C1F30AAE200C4F31F /* AddViewController.swift in Sources */,
+				394D0A331F44576C00A4C16D /* PinterestLayout.swift in Sources */,
 				399CCC171F06B43D00AF605D /* AppDelegate.swift in Sources */,
 				39458F491F3162A900915FD5 /* TableViewCellController.swift in Sources */,
 				394B21951F407F3A00F8E5BB /* MyDiaryHeaderViewCollectionReusableView.swift in Sources */,
+				394D0A361F44888100A4C16D /* RoundedCornersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

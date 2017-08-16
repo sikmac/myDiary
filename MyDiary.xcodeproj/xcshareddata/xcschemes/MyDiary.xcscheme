@@ -61,6 +61,13 @@
             ReferencedContainer = "container:MyDiary.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "OSACTIVITYMODE"
+            value = "disable"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

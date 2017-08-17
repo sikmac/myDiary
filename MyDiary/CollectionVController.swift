@@ -25,15 +25,22 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.reloadData()
-//        let context = collectionView.collectionViewLayout.invalidationContext(forBoundsChange: collectionView.bounds)
-//        context.contentOffsetAdjustment = CGPoint.zero
-//        collectionView.collectionViewLayout.invalidateLayout(with: context)
-//        collectionView.layoutSubviews()
         
-//        collectionView.refreshControl = myRefreshControl
-//        self.myRefreshControl.addTarget(self, action: #selector(self.refreshList), for: .valueChanged)
-//        collectionView.refreshControl?.attributedTitle = NSAttributedString(string: "更新中...")
+        
+        self.collectionView.reloadData()
+        layout.invalidateLayout()
+//        self.collectionView!.collectionViewLayout.invalidateLayout()
+        
+        //        self.collectionView.layoutSubviews()
+        
+        //        let context = collectionView.collectionViewLayout.invalidationContext(forBoundsChange: collectionView.bounds)
+        //        context.contentOffsetAdjustment = CGPoint.zero
+        //        collectionView.collectionViewLayout.invalidateLayout(with: context)
+        //        collectionView.layoutSubviews()
+        
+        //        collectionView.refreshControl = myRefreshControl
+        //        self.myRefreshControl.addTarget(self, action: #selector(self.refreshList), for: .valueChanged)
+        //        collectionView.refreshControl?.attributedTitle = NSAttributedString(string: "更新中...")
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segue2" {
@@ -48,11 +55,11 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        let layout = collectionView.collectionViewLayout as! PinterestLayout
-//        layout.delegate = self
+        //        let layout = collectionView.collectionViewLayout as! PinterestLayout
+        //        layout.delegate = self
         getDataFromDB()
-//        collectionView.reloadData()
-//        collectionView!.collectionViewLayout.invalidateLayout()
+        //        self.collectionView.reloadData()
+        //        self.collectionView!.collectionViewLayout.invalidateLayout()
     }
     func getDataFromDB() {
         days.removeAll()
@@ -97,8 +104,9 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
             }
         }
         sqlite3_finalize(statement)
-        collectionView.reloadData()
-//        collectionView!.collectionViewLayout.invalidateLayout()
+        self.collectionView.reloadData()
+        //        self.collectionView!.collectionViewLayout.invalidateLayout()
+        //        collectionView!.collectionViewLayout.invalidateLayout()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -138,13 +146,13 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
         default:
             assert(false, "Unexpected element kind")
         }
-    }    
+    }
     //MARK: -collectionView refresh
-//    func refreshList() {
-//        getDataFromDB()
-//        collectionView.reloadData()
-//        myRefreshControl.endRefreshing()
-//    }
+    //    func refreshList() {
+    //        getDataFromDB()
+    //        collectionView.reloadData()
+    //        myRefreshControl.endRefreshing()
+    //    }
     //MARK: -Buttons
     @IBAction func btnBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -162,12 +170,17 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
 }
 
 extension CollectionVController: PinterestLayoutDelegate {
-    func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
+    //    func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
+    //        let random = arc4random_uniform(4) + 1
+    //        return CGFloat(random * 100)
+    //    }
+    //    func collectionView(collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
+    //        let random = arc4random_uniform(4) + 1
+    //        return 60
+    //    }
+    func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let random = arc4random_uniform(4) + 1
         return CGFloat(random * 100)
     }
-    func collectionView(collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
-        let random = arc4random_uniform(4) + 1
-        return 60
-    }
+    
 }

@@ -76,14 +76,16 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         print("createTime:\(createTime)")
         let yearMonth = (createTime as NSString).substring(to: 7)
         let currentDate = (createTime as NSString).substring(to: 10)
-        let createDate = (currentDate as NSString).substring(from: 8)
         let createWeek = (createTime as NSString).substring(from: 17)
+        
+        let monthDate = (currentDate as NSString).substring(from: 5)
+        let createDate = (currentDate as NSString).substring(from: 8)
         
         if db != nil {
             
             var statement:OpaquePointer? = nil
             let imageData = UIImageJPEGRepresentation(imgPicture.image!, 0.8)! as NSData
-            let sql = String(format: "INSERT INTO records (CreateDate,YearMonth,Photo,TextView,CreateTime,CreateWeek) VALUES ('%@','%@',?,'%@','%@','%@')", createDate, yearMonth, txtView.text!, txtDate.text!, createWeek)
+            let sql = String(format: "INSERT INTO records (CreateDate,YearMonth,MonthDate,Photo,TextView,CreateTime,CreateWeek) VALUES ('%@','%@','%@',?,'%@','%@','%@')", createDate, yearMonth, monthDate, txtView.text!, txtDate.text!, createWeek)
             
             sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)
             sqlite3_bind_blob(statement, 1, imageData.bytes, Int32(imageData.length), nil)
@@ -95,10 +97,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
                     in
                     _ = self.navigationController?.popViewController(animated: false)
                 }))
-                
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-//                alert.addAction(cancelAction)
-                
+               
                 present(alert, animated: true, completion: nil)
                 
                 if self.tableViewController != nil {
@@ -107,38 +106,28 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
                         tableViewController.myRecords[yearMonth] = []
                     }
                     tableViewController.myRecords[yearMonth]?.append([
-                        "CreateWeek":"\(createWeek)",
                         "CreateDate":"\(createDate)",
+                        "MonthDate":"\(monthDate)",
+                        "CreateWeek":"\(createWeek)",
                         "CreateTime":"\(createTime)",
                         "Photo":imageData,
                         "TextView":txtView.text!
                         ])
                 } else {
-                    if !newDays.contains(yearMonth) {
-                        newDays.append(yearMonth)
-                        collectionViewController.myRecords[yearMonth] = []
-                    }
-                    collectionViewController.myRecords[yearMonth]?.append([
+//                    if !newDays.contains(yearMonth) {
+//                        newDays.append(yearMonth)
+//                        collectionViewController.myRecords[yearMonth] = []
+//                    }
+                    collectionViewController.myCVRecords.append([
+//                        "Id":"\(id)",
+                        "MonthDate":"\(monthDate)",
                         "CreateWeek":"\(createWeek)",
-                        "CreateDate":"\(createDate)",
-                        "CreateTime":"\(createTime)",
                         "Photo":imageData,
-                        "TextView":txtView.text!
+                        "TextView":txtView.text!,
+                        "CreateTime":"\(createTime)"
                         ])
+
                 }
-                
-//                if !newDays.contains(yearMonth) {
-//                    newDays.append(yearMonth)
-//                    tableViewController.myRecords[yearMonth] = []
-//                }
-//                tableViewController.myRecords[yearMonth]?.append([
-//                    "CreateWeek":"\(createWeek)",
-//                    "CreateDate":"\(createDate)",
-//                    "CreateTime":"\(createTime)",
-//                    "Photo":imageData,
-//                    "TextView":txtView.text!
-//                    ])
-//                print("新增資料：\(tableViewController.myRecords)")
             } else {
                 let alert = UIAlertController(title: "資料庫訊息", message: "資料新增失敗！", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "確定", style: .destructive, handler: nil))
@@ -156,7 +145,6 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     func keyboardWillShow(_ sender:Notification) {
         if let keyboardHeight = (sender.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? NSValue)?.cgRectValue.size.height {
-//            print("鍵盤高度：\(keyboardHeight)")
             let visiableHeight = self.view.frame.size.height - keyboardHeight
             if currentTextObjectYPosition > visiableHeight {
                 self.view.frame.origin.y = -(self.currentTextObjectYPosition-visiableHeight+10)
@@ -164,8 +152,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    func keyboardWillHide() {
-        
+    func keyboardWillHide() {        
         self.view.frame.origin.y = 0
     }
     

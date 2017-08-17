@@ -41,14 +41,14 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             imgPicture.image = UIImage(data: aPic as! Data)
             self.PostRecords.append(dicCurrentRow!)
         } else {
-            let dicCurrentRow = collectionViewController.myRecords[postRecords]?[selectedRow]
-            txtDate.text = dicCurrentRow?["CreateTime"] as? String
-            txtView.text = dicCurrentRow?["TextView"] as! String
-            guard let aPic = dicCurrentRow?["Photo"]! else {
+            let dicCurrentRow = collectionViewController.myCVRecords[selectedRow]
+            txtDate.text = dicCurrentRow["CreateTime"] as? String
+            txtView.text = dicCurrentRow["TextView"] as! String
+            guard let aPic = dicCurrentRow["Photo"]! else {
                 return
             }
             imgPicture.image = UIImage(data: aPic as! Data)
-            self.PostRecords.append(dicCurrentRow!)
+            self.PostRecords.append(dicCurrentRow)
         }
         print("postrecords:\(PostRecords)")
         

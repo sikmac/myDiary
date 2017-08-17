@@ -7,5 +7,12 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblWeek: UILabel!
     @IBOutlet fileprivate weak var imageViewHeightLayoutConstraint: NSLayoutConstraint!
     
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+        if let attributes = layoutAttributes as? PinterestLayoutAttributes {
+            imageViewHeightLayoutConstraint.constant = attributes.photoHeight
+        }
+    }
+    
     
 }

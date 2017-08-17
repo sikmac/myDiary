@@ -1,4 +1,5 @@
 import UIKit
+import AVFoundation
 
 class CollectionVController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     // MARK: -collectionView in collectionViewController property
@@ -6,7 +7,6 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
     
     var myRecords :[String:[[String:Any?]]] = [:]
     var days: [String]! = []
-    
     var db:OpaquePointer? = nil
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,6 +20,7 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
         
         let width = collectionView.frame.width / 2
         let layout = collectionView.collectionViewLayout as! PinterestLayout
+        layout.cellPadding = 5
         layout.delegate = self
         layout.numberOfColumns = 2
         
@@ -30,8 +31,6 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
         self.collectionView.reloadData()
         layout.invalidateLayout()
 //        self.collectionView!.collectionViewLayout.invalidateLayout()
-        
-        //        self.collectionView.layoutSubviews()
         
         //        let context = collectionView.collectionViewLayout.invalidationContext(forBoundsChange: collectionView.bounds)
         //        context.contentOffsetAdjustment = CGPoint.zero
@@ -170,17 +169,17 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
 }
 
 extension CollectionVController: PinterestLayoutDelegate {
-    //    func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
-    //        let random = arc4random_uniform(4) + 1
-    //        return CGFloat(random * 100)
-    //    }
-    //    func collectionView(collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
-    //        let random = arc4random_uniform(4) + 1
-    //        return 60
-    //    }
-    func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let random = arc4random_uniform(4) + 1
-        return CGFloat(random * 100)
-    }
+        func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
+            let random = arc4random_uniform(4) + 1
+            return CGFloat(random * 100)
+        }
+        func collectionView(collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
+            let random = arc4random_uniform(4) + 1
+            return 60
+        }
+//    func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        let random = arc4random_uniform(4) + 1
+//        return CGFloat(random * 100)
+//    }
     
 }

@@ -1,4 +1,5 @@
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: -tableView in tableViewController property

@@ -78,7 +78,7 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
                 ])
         }
         sqlite3_finalize(statement)
-        self.collectionView.reloadData()
+//        self.collectionView.reloadData()
         
     }
     

@@ -25,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else if sqlite3_open(destinationDB, &db) == SQLITE_OK {
+            print("資料庫開啟成功！")
         } else {
+            print("資料庫開啟失敗！")
             db = nil
         }
         

@@ -25,7 +25,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
         
         txtDate.delegate = self
-        myFormatter.dateFormat = "yyyy-MM-dd HH:mm EEE"
+        myFormatter.dateFormat = "yyyy-MM-dd EEE HH:mm"
         
         txtView.layer.cornerRadius = 10
         txtView.layer.borderWidth = 2.0
@@ -85,21 +85,27 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
             return  //直接離開函式
         }
         
-        let createTime = (txtDate.text)!
+        let pickTime = (txtDate.text)!
+        let createTime = (pickTime as NSString).substring(to: 14)
         print("createTime:\(createTime)")
         let yearMonth = (createTime as NSString).substring(to: 7)
+        print("yearMonth:\(yearMonth)")
         let currentDate = (createTime as NSString).substring(to: 10)
-        let createWeek = (createTime as NSString).substring(from: 17)
+        print("currentDate:\(currentDate)")
+        let createWeek = (createTime as NSString).substring(from: 11)
+        print("createWeek:\(createWeek)")
         
         let monthDate = (currentDate as NSString).substring(from: 5)
+        print("monthDate:\(monthDate)")
         let createDate = (currentDate as NSString).substring(from: 8)
+        print("createDate:\(createDate)")
         
         if db != nil {
             
             var statement:OpaquePointer? = nil
             let imageData = UIImageJPEGRepresentation(imgPicture.image!, 0.8)! as NSData
             let sql = String(format: "INSERT INTO records (CreateDate,YearMonth,MonthDate,Photo,TextView,CreateTime,CreateWeek) VALUES ('%@','%@','%@',?,'%@','%@','%@')", createDate, yearMonth, monthDate, txtView.text!, txtDate.text!, createWeek)
-            
+            print("sql:\(sql)")
             sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)
             sqlite3_bind_blob(statement, 1, imageData.bytes, Int32(imageData.length), nil)
             if sqlite3_step(statement) == SQLITE_DONE {

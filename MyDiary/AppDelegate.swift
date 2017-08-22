@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let destinationDB = NSHomeDirectory() + "/Documents/sqlite30.db"    //取得資料庫的目的地路徑
+        let destinationDB = NSHomeDirectory() + "/Documents/sqlite3.db"    //取得資料庫的目的地路徑
         print("path：\(destinationDB)")
         //檢查目的地的資料庫是否已經存在
         if !FileManager.default.fileExists(atPath: destinationDB) {    //如果不存在
@@ -28,7 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             db = nil
         }
-        return true
+        
+        // 設定導覽列預設底色
+//        UINavigationBar.appearance().barTintColor = UIColor.init(red: 0.91, green: 0.75, blue: 1.0, alpha: 1)
+        
+        // 設定導覽列預設按鈕顏色
+//        UINavigationBar.appearance().tintColor = UIColor.black
+
+                return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

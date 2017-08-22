@@ -1,6 +1,6 @@
 import UIKit
 
-class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
     
     let myFormatter = DateFormatter()
     
@@ -36,14 +36,17 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
                           NSParagraphStyleAttributeName: paraph]
         txtView.attributedText = NSAttributedString(string: txtView.text!, attributes: attributes)
         
-//        txtView.placeholder = "输入姓名"
-//        txtView.borderStyle = .roundedRect
+        txtView.backgroundColor = UIColor.white
+        txtView.text = "我是placeholder"
+        txtView.textColor = UIColor.gray
+        txtView.delegate = self
+//        view.addSubview(txtView)
+        
         
         // UIDatePicker
         myDatePicker = UIDatePicker()
         myDatePicker.datePickerMode = .dateAndTime
         myDatePicker.locale = Locale(identifier: "zh_TW")
-//        txtDate.font = UIFont.boldSystemFont(ofSize: <#T##CGFloat#>)
         txtDate.inputView = myDatePicker
         
         // UIDatePicker 取消及完成按鈕
@@ -61,14 +64,16 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closeKeyBoard))
         self.view.addGestureRecognizer(tapGesture)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style:.plain, target: self, action: #selector(btnSaveAction))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style:.plain, target: self, action: #selector(btnSaveAction))
+//        let saveImg = UIImage(named: "btnSave.png")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btnSave.png"), style: .plain, target: self, action: #selector(btnSaveAction))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func doneTouched(_ sender:UIBarButtonItem) {
         let date = myFormatter.string(from: myDatePicker.date)
-        print("date:\(date)")
+//        print("date:\(date)")
         txtDate.text = date
         closeKeyBoard()
     }
@@ -87,25 +92,26 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         let pickTime = (txtDate.text)!
         let createTime = (pickTime as NSString).substring(to: 14)
-        print("createTime:\(createTime)")
+//        print("createTime:\(createTime)")
         let yearMonth = (createTime as NSString).substring(to: 7)
-        print("yearMonth:\(yearMonth)")
+//        print("yearMonth:\(yearMonth)")
         let currentDate = (createTime as NSString).substring(to: 10)
-        print("currentDate:\(currentDate)")
+//        print("currentDate:\(currentDate)")
         let createWeek = (createTime as NSString).substring(from: 11)
-        print("createWeek:\(createWeek)")
+//        print("createWeek:\(createWeek)")
         
         let monthDate = (currentDate as NSString).substring(from: 5)
-        print("monthDate:\(monthDate)")
+//        print("monthDate:\(monthDate)")
         let createDate = (currentDate as NSString).substring(from: 8)
-        print("createDate:\(createDate)")
+//        print("createDate:\(createDate)")
+
         
         if db != nil {
             
             var statement:OpaquePointer? = nil
             let imageData = UIImageJPEGRepresentation(imgPicture.image!, 0.8)! as NSData
             let sql = String(format: "INSERT INTO records (CreateDate,YearMonth,MonthDate,Photo,TextView,CreateTime,CreateWeek) VALUES ('%@','%@','%@',?,'%@','%@','%@')", createDate, yearMonth, monthDate, txtView.text!, txtDate.text!, createWeek)
-            print("sql:\(sql)")
+            
             sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)
             sqlite3_bind_blob(statement, 1, imageData.bytes, Int32(imageData.length), nil)
             if sqlite3_step(statement) == SQLITE_DONE {
@@ -133,10 +139,6 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
                         "TextView":txtView.text!
                         ])
                 } else {
-//                    if !newDays.contains(yearMonth) {
-//                        newDays.append(yearMonth)
-//                        collectionViewController.myRecords[yearMonth] = []
-//                    }
                     collectionViewController.myCVRecords.append([
 //                        "Id":"\(id)",
                         "MonthDate":"\(monthDate)",
@@ -182,6 +184,21 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
             }
         }
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if txtView.text.characters.count < 1 {
+            txtView.text = "我是placeholder"
+            txtView.textColor = UIColor.gray
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (txtView.text == "我是placeholder") {
+            txtView.text = ""
+            txtView.textColor = UIColor.black
+        }
+    }
+
     //MARK: -Buttons
     @IBAction func btnTakePicture(_ sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {

@@ -25,19 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else if sqlite3_open(destinationDB, &db) == SQLITE_OK {
-            print("資料庫開啟成功！")
         } else {
-            print("資料庫開啟失敗！")
             db = nil
         }
-        
         // 設定導覽列預設底色
         UINavigationBar.appearance().barTintColor = UIColor.init(red: 0.8, green: 0.75, blue: 1.0, alpha: 1)
         
         // 設定導覽列預設按鈕顏色
         UINavigationBar.appearance().tintColor = UIColor.white
-
-                return true
+        return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

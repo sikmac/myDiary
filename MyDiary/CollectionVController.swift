@@ -27,9 +27,6 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
         self.collectionView.reloadData()
         layout.invalidateLayout()
         
-//        collectionView.refreshControl = myRefreshControl
-//        self.myRefreshControl.addTarget(self, action: #selector(self.refreshList), for: .valueChanged)
-//        collectionView.refreshControl?.attributedTitle = NSAttributedString(string: "更新中...")
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segue2" {
@@ -41,10 +38,12 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
             postVC.selectedRow = indexPath[0].row
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getDataFromDB()
     }
+    
     func getDataFromDB() {
         days.removeAll()
         myCVRecords.removeAll()
@@ -78,7 +77,7 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
                 ])
         }
         sqlite3_finalize(statement)
-//        self.collectionView.reloadData()
+        self.collectionView.reloadData()
         
     }
     
@@ -99,28 +98,16 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
         
         return cell
     }
-        //MARK: -collectionView refresh
-    //    func refreshList() {
-    //        getDataFromDB()
-    //        collectionView.reloadData()
-    //        myRefreshControl.endRefreshing()
-    //    }
-    
+    //PinterestLayout 
     func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
         let photo = UIImage(data: ((myCVRecords[indexPath.row]["Photo"]) as? Data)!)?.decompressedImage
         let boundingRect = CGRect(x: 0, y: 0, width: withWidth, height: CGFloat(MAXFLOAT))
         let rect = AVMakeRect(aspectRatio: (photo?.size)!, insideRect: boundingRect)
         return rect.size.height
     }
+    
     func collectionView(collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
-//        let annotationPadding = CGFloat(4)
-//        let annotationHeaderHeight = CGFloat(17)
-////        let photo = photos[indexPath.item]
-////        let font = UIFont(name: "AvenirNext-Regular", size: 10)!
-////        let commentHeight = photo.heightForComment(font, width: width)
-//        let height = annotationPadding + annotationHeaderHeight + annotationPadding
-//        return height
-//        let random = arc4random_uniform(4) + 1
+
         return 60    //Date+Week的高度
         
     }

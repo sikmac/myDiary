@@ -29,17 +29,7 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         txtDate.delegate = self
-        myFormatter.dateFormat = "yyyy-MM-dd HH:mm EEE"
-        
-        txtView.layer.cornerRadius = 10
-        txtView.layer.borderWidth = 2.0
-        txtView.layer.borderColor = (UIColor.init(red: 0.8, green: 0.75, blue: 1, alpha: 1)).cgColor
-        let paraph = NSMutableParagraphStyle()
-        paraph.lineSpacing = 10
-        let attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: 18),
-                          NSParagraphStyleAttributeName: paraph]
-        txtView.attributedText = NSAttributedString(string: txtView.text!, attributes: attributes)
-        
+        myFormatter.dateFormat = "yyyy-MM-dd EEE HH:mm"
         
         if self.tableViewController != nil {
             let dicCurrentRow = tableViewController.myRecords[postRecords]?[selectedRow]
@@ -60,14 +50,25 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             imgPicture.image = UIImage(data: aPic as! Data)
             self.PostRecords.append(dicCurrentRow)
         }
-        print("postrecords:\(PostRecords)")
+//        print("postrecords:\(PostRecords)")
         
+        txtView.layer.cornerRadius = 10
+        txtView.layer.borderWidth = 2.0
+        txtView.layer.borderColor = (UIColor.init(red: 0.8, green: 0.75, blue: 1, alpha: 1)).cgColor
+        let paraph = NSMutableParagraphStyle()
+        paraph.lineSpacing = 10
+        let attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: 18),
+                          NSParagraphStyleAttributeName: paraph]
+        txtView.attributedText = NSAttributedString(string: txtView.text!, attributes: attributes)
+        
+        // UIDatePicker
         myDatePicker = UIDatePicker()
         myDatePicker.datePickerMode = .dateAndTime
         myDatePicker.locale = Locale(identifier: "zh_TW")
         myDatePicker.date = myFormatter.date(from: txtDate.text!)!
         txtDate.inputView = myDatePicker
         
+        // UIDatePicker 取消及完成按鈕
         let toolBar = UIToolbar()
         toolBar.barTintColor = UIColor.clear
         toolBar.sizeToFit()
@@ -105,11 +106,27 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         let updateId = PostRecords[0]["Id"] as? String
-        let createTime = (txtDate.text)!
+//        let createTime = (txtDate.text)!
+//        let yearMonth = (createTime as NSString).substring(to: 7)
+//        let currentDate = (createTime as NSString).substring(to: 10)
+//        let createDate = (currentDate as NSString).substring(from: 8)
+//        let createWeek = (createTime as NSString).substring(from: 17)
+        
+        let pickTime = (txtDate.text)!
+        let createTime = (pickTime as NSString).substring(to: 14)
+//        print("createTime:\(createTime)")
         let yearMonth = (createTime as NSString).substring(to: 7)
+//        print("yearMonth:\(yearMonth)")
         let currentDate = (createTime as NSString).substring(to: 10)
+//        print("currentDate:\(currentDate)")
+        let createWeek = (createTime as NSString).substring(from: 11)
+//        print("createWeek:\(createWeek)")
+        
+        let monthDate = (currentDate as NSString).substring(from: 5)
+//        print("monthDate:\(monthDate)")
         let createDate = (currentDate as NSString).substring(from: 8)
-        let createWeek = (createTime as NSString).substring(from: 17)
+//        print("createDate:\(createDate)")
+
         
         if db != nil {
             

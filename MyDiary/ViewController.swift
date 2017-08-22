@@ -1,5 +1,4 @@
 import UIKit
-import Alamofire
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: -tableView in tableViewController property
@@ -26,9 +25,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.reloadData()
         
-//        tableView.refreshControl = myRefreshControl
-//        self.myRefreshControl.addTarget(self, action: #selector(ViewController.refreshList), for: .valueChanged)
-//        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "更新中...")
 //        tableView.contentOffset = CGPoint(x: 0.0, y: 44.0)
 
     }
@@ -135,12 +131,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    //MARK: -tableView refresh
-//    func refreshList() {
-//        getDataFromDB()
-//        tableView.reloadData()
-//        myRefreshControl.endRefreshing()
-//    }
     //MARK: -Buttons
     @IBAction func btnChange(_ sender: UIButton) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)

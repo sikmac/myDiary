@@ -27,10 +27,23 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         txtDate.delegate = self
         myFormatter.dateFormat = "yyyy-MM-dd HH:mm EEE"
         
+        txtView.layer.cornerRadius = 10
+        txtView.layer.borderWidth = 2.0
+        txtView.layer.borderColor = (UIColor.init(red: 0.8, green: 0.75, blue: 1, alpha: 1)).cgColor
+        let paraph = NSMutableParagraphStyle()
+        paraph.lineSpacing = 10
+        let attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: 18),
+                          NSParagraphStyleAttributeName: paraph]
+        txtView.attributedText = NSAttributedString(string: txtView.text!, attributes: attributes)
+        
+//        txtView.placeholder = "输入姓名"
+//        txtView.borderStyle = .roundedRect
+        
         // UIDatePicker
         myDatePicker = UIDatePicker()
         myDatePicker.datePickerMode = .dateAndTime
         myDatePicker.locale = Locale(identifier: "zh_TW")
+//        txtDate.font = UIFont.boldSystemFont(ofSize: <#T##CGFloat#>)
         txtDate.inputView = myDatePicker
         
         // UIDatePicker 取消及完成按鈕

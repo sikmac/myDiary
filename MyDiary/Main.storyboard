@@ -22,16 +22,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WpX-of-isK">
-                                <rect key="frame" x="20" y="686" width="44" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.35669066309366682" blue="0.31605974411450866" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="CView"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WpX-of-isK">
+                                <rect key="frame" x="20" y="678" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Aej-9t-Ba1"/>
+                                    <constraint firstAttribute="height" constant="50" id="FWs-kV-HZP"/>
+                                </constraints>
+                                <state key="normal" image="btnCV"/>
                                 <connections>
                                     <action selector="btnChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Q5-ij-0qo"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="tableView1" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8jy-G8-d7c">
-                                <rect key="frame" x="0.0" y="64" width="414" height="614"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="606"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -99,19 +103,21 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.91000000000000003" green="0.75" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WpX-of-isK" secondAttribute="bottom" constant="20" id="JM0-iM-tvk"/>
-                            <constraint firstItem="WpX-of-isK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="c9N-xA-ceZ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WpX-of-isK" secondAttribute="bottom" constant="8" id="DKD-ma-nIt"/>
+                            <constraint firstItem="WpX-of-isK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="YDe-ub-j6i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d7g-2N-udI">
-                        <barButtonItem key="leftBarButtonItem" title="設定" id="H2d-4K-ATW">
+                        <barButtonItem key="leftBarButtonItem" image="btnSettings" id="H2d-4K-ATW">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="btnSettings:" destination="BYZ-38-t0r" id="XHc-xF-UAd"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="＋" id="msQ-wL-xCT">
+                        <barButtonItem key="rightBarButtonItem" image="btnAdd" id="msQ-wL-xCT">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="btnAdd:" destination="BYZ-38-t0r" id="p0y-zf-9eZ"/>
                             </connections>
@@ -145,7 +151,7 @@
                             <textField opaque="NO" clipsSubviews="YES" tag="503" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ySl-k4-J6W">
                                 <rect key="frame" x="102" y="74" width="210" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.91000000000000003" green="0.75" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="32"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -241,7 +247,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0gs-us-raH">
-                                <rect key="frame" x="0.0" y="20" width="414" height="658"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="650"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="q35-nz-Q72" customClass="PinterestLayout" customModule="MyDiary" customModuleProvider="target"/>
@@ -313,29 +319,35 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r27-ZY-nwv">
-                                <rect key="frame" x="20" y="686" width="43" height="30"/>
-                                <color key="backgroundColor" red="0.40323282749627454" green="1" blue="0.38865606662225849" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="TView"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r27-ZY-nwv">
+                                <rect key="frame" x="20" y="678" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3KS-8u-fPF"/>
+                                    <constraint firstAttribute="width" constant="50" id="bO5-6q-zDv"/>
+                                </constraints>
+                                <state key="normal" image="btnTV"/>
                                 <connections>
                                     <action selector="btnBack:" destination="rfS-rH-izL" eventType="touchUpInside" id="NaB-Cb-ll9"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.91000000000000003" green="0.75" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="r27-ZY-nwv" firstAttribute="leading" secondItem="6MG-YN-zPV" secondAttribute="leading" constant="20" id="gDe-zU-bpK"/>
-                            <constraint firstItem="osa-xr-5fp" firstAttribute="top" secondItem="r27-ZY-nwv" secondAttribute="bottom" constant="20" id="qDj-hy-IEd"/>
+                            <constraint firstItem="r27-ZY-nwv" firstAttribute="leading" secondItem="6MG-YN-zPV" secondAttribute="leading" constant="20" id="09z-fO-Bpn"/>
+                            <constraint firstItem="osa-xr-5fp" firstAttribute="top" secondItem="r27-ZY-nwv" secondAttribute="bottom" constant="8" id="AOc-eM-pkf"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="z85-rC-yyz">
-                        <barButtonItem key="leftBarButtonItem" title="設定" id="gsz-6E-Oq6">
+                        <barButtonItem key="leftBarButtonItem" image="btnSettings" id="gsz-6E-Oq6">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="btnSettings:" destination="rfS-rH-izL" id="ntz-b0-i1s"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="＋" id="olu-fI-qBZ">
+                        <barButtonItem key="rightBarButtonItem" image="btnAdd" id="olu-fI-qBZ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="btnAdd:" destination="rfS-rH-izL" id="ebV-Wz-RiS"/>
                             </connections>
@@ -385,7 +397,7 @@
                             <textField opaque="NO" clipsSubviews="YES" tag="503" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sM2-Y7-cuz">
                                 <rect key="frame" x="102" y="74" width="210" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.91000000000000003" green="0.75" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="32"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -461,6 +473,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="btnAdd" width="50" height="50"/>
+        <image name="btnCV" width="50" height="50"/>
+        <image name="btnSettings" width="50" height="50"/>
+        <image name="btnTV" width="50" height="50"/>
         <image name="share" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>

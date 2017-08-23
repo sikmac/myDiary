@@ -15,7 +15,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 //        self.navigationController?.navigationBar.isTranslucent = false
 
         self.automaticallyAdjustsScrollViewInsets = false
-        self.title = "關於"
+//        self.title = "關於"
         
         // 建立 UITableView
         myTableView = UITableView(frame: CGRect(x: 0, y: 50, width: fullSize.width, height: fullSize.height), style: .grouped)

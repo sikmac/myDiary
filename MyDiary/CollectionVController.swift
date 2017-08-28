@@ -100,7 +100,7 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
     }
     //PinterestLayout 
     func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth: CGFloat) -> CGFloat {
-        let photo = UIImage(data: ((myCVRecords[indexPath.row]["Photo"]) as? Data)!)?.decompressedImage
+        let photo = UIImage(data: ((myCVRecords[indexPath.row]["Photo"]) as? Data)!)//.decompressedImage
         let boundingRect = CGRect(x: 0, y: 0, width: withWidth, height: CGFloat(MAXFLOAT))
         let rect = AVMakeRect(aspectRatio: (photo?.size)!, insideRect: boundingRect)
         return rect.size.height
@@ -128,13 +128,13 @@ class CollectionVController: UIViewController, UICollectionViewDataSource, UICol
     }
 }
 
-extension UIImage {
-    var decompressedImage: UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, true, 0)
-        draw(at: CGPoint.zero)
-        let decompressedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return decompressedImage!
-    }
-}
+//extension UIImage {
+//    var decompressedImage: UIImage {
+//        UIGraphicsBeginImageContextWithOptions(size, true, 0)
+//        draw(at: CGPoint.zero)
+//        let decompressedImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return decompressedImage!
+//    }
+//}
 

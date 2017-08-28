@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             db = nil
         }
         // 設定導覽列預設底色
-        UINavigationBar.appearance().barTintColor = UIColor.init(red: 0.8, green: 0.75, blue: 1.0, alpha: 1)
+        UINavigationBar.appearance().barTintColor = UIColor.init(red: 0.3, green: 0.59, blue: 0.8, alpha: 1)
         
         // 設定導覽列預設按鈕顏色
         UINavigationBar.appearance().tintColor = UIColor.white

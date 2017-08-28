@@ -1,6 +1,9 @@
 import UIKit
+import AVFoundation
+import AssetsLibrary
+import AVKit
 
-class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
+class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, AVCaptureFileOutputRecordingDelegate {
     
     let myFormatter = DateFormatter()
     
@@ -12,6 +15,9 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
     var myDatePicker :UIDatePicker!
     var myRecords = [String:[[String:Any?]]]()
     var newDays = [String]()
+    
+    let captureSession = AVCaptureSession()
+    var cameraPreviewLayer = AVCaptureVideoPreviewLayer()
     
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var txtView: UITextView!
@@ -40,7 +46,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         txtView.text = "我是placeholder"
         txtView.textColor = UIColor.gray
         txtView.delegate = self
-//        view.addSubview(txtView)
+        //        view.addSubview(txtView)
         
         
         // UIDatePicker
@@ -64,8 +70,8 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closeKeyBoard))
         self.view.addGestureRecognizer(tapGesture)
         
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style:.plain, target: self, action: #selector(btnSaveAction))
-//        let saveImg = UIImage(named: "btnSave.png")
+        //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style:.plain, target: self, action: #selector(btnSaveAction))
+        //        let saveImg = UIImage(named: "btnSave.png")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btnSave.png"), style: .plain, target: self, action: #selector(btnSaveAction))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -73,7 +79,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     func doneTouched(_ sender:UIBarButtonItem) {
         let date = myFormatter.string(from: myDatePicker.date)
-//        print("date:\(date)")
+        //        print("date:\(date)")
         txtDate.text = date
         closeKeyBoard()
     }
@@ -92,19 +98,19 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         let pickTime = (txtDate.text)!
         let createTime = (pickTime as NSString).substring(to: 14)
-//        print("createTime:\(createTime)")
+        //        print("createTime:\(createTime)")
         let yearMonth = (createTime as NSString).substring(to: 7)
-//        print("yearMonth:\(yearMonth)")
+        //        print("yearMonth:\(yearMonth)")
         let currentDate = (createTime as NSString).substring(to: 10)
-//        print("currentDate:\(currentDate)")
+        //        print("currentDate:\(currentDate)")
         let createWeek = (createTime as NSString).substring(from: 11)
-//        print("createWeek:\(createWeek)")
+        //        print("createWeek:\(createWeek)")
         
         let monthDate = (currentDate as NSString).substring(from: 5)
-//        print("monthDate:\(monthDate)")
+        //        print("monthDate:\(monthDate)")
         let createDate = (currentDate as NSString).substring(from: 8)
-//        print("createDate:\(createDate)")
-
+        //        print("createDate:\(createDate)")
+        
         
         if db != nil {
             
@@ -116,13 +122,13 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
             sqlite3_bind_blob(statement, 1, imageData.bytes, Int32(imageData.length), nil)
             if sqlite3_step(statement) == SQLITE_DONE {
                 let alert = UIAlertController(title: "資料庫訊息", message: "資料新增成功！", preferredStyle: .alert)
-           
+                
                 alert.addAction(UIAlertAction(title: "確定", style: .default, handler: {
                     (result) -> Void
                     in
                     _ = self.navigationController?.popViewController(animated: false)
                 }))
-               
+                
                 present(alert, animated: true, completion: nil)
                 
                 if self.tableViewController != nil {
@@ -140,14 +146,14 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
                         ])
                 } else {
                     collectionViewController.myCVRecords.append([
-//                        "Id":"\(id)",
+                        //                        "Id":"\(id)",
                         "MonthDate":"\(monthDate)",
                         "CreateWeek":"\(createWeek)",
                         "Photo":imageData,
                         "TextView":txtView.text!,
                         "CreateTime":"\(createTime)"
                         ])
-
+                    
                 }
             } else {
                 let alert = UIAlertController(title: "資料庫訊息", message: "資料新增失敗！", preferredStyle: .alert)
@@ -164,6 +170,15 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         picker.dismiss(animated: true, completion: nil)
     }
     
+    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+        
+        if error != nil {
+            print(error)
+            return
+        }
+        
+    }
+    
     func keyboardWillShow(_ sender:Notification) {
         if let keyboardHeight = (sender.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? NSValue)?.cgRectValue.size.height {
             let visiableHeight = self.view.frame.size.height - keyboardHeight
@@ -173,7 +188,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    func keyboardWillHide() {        
+    func keyboardWillHide() {
         self.view.frame.origin.y = 0
     }
     
@@ -198,7 +213,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
             txtView.textColor = UIColor.black
         }
     }
-
+    
     //MARK: -Buttons
     @IBAction func btnTakePicture(_ sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -220,5 +235,26 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         } else {
             print("找不到相簿！")
         }
+    }
+    
+    @IBAction func btnCamera(_ semder: UIButton) {
+        
+            //確認裝置是否有相機可使用
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.sourceType = .camera
+            //確認是否有後方鏡頭
+//            if UIImagePickerController.isCameraDeviceAvailable(.rear) {
+//                imagePickerController.cameraDevice = .rear
+                //設定是拍照還是錄影
+                imagePickerController.cameraCaptureMode = .video
+//                imagePickerController.allowsEditing = true
+                imagePickerController.delegate = self
+                show(imagePickerController, sender: self)
+//            }
+        } else {
+            print("找不到相機！")
+        }
+
     }
 }

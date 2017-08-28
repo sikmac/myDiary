@@ -148,7 +148,7 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 dicCurrentRow["CreateTime"] = txtDate.text!
                 dicCurrentRow["TextView"] = txtView.text!
                 dicCurrentRow["Photo"] = UIImageJPEGRepresentation(imgPicture.image!, 0.7)
-                print("String：\(String(describing: UIImageJPEGRepresentation(imgPicture.image!, 0.7)))")
+//                print("String：\(String(describing: UIImageJPEGRepresentation(imgPicture.image!, 0.7)))")
             } else {
                 let alert = UIAlertController(title: "資料庫訊息", message: "資料修改失敗！", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "確定", style: .destructive, handler: nil))
